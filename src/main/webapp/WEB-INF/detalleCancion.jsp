@@ -6,6 +6,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
   <head>
     <meta charset="UTF-8" />
     <title>Detalle Canción</title>
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
     <h1>Detalle de la Canción</h1>
@@ -18,6 +19,6 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <p><strong>Creada:</strong> ${cancion.fechaCreacion}</p>
     <p><strong>Actualizada:</strong> ${cancion.fechaActualizacion}</p>
 
-    <a href="/canciones">Volver al listado</a>
+    <a href="/canciones" class="btn-bottom">Volver al listado</a>
   </body>
 </html>

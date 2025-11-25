@@ -21,4 +21,8 @@ public class ServicioCanciones {
     public Cancion obtenerCancionPorId(Long id) {
         return repositorioCancion.findById(id).orElse(null);
     }
+
+    public Cancion agregarCancion(Cancion nuevaCancion) {
+        return repositorioCancion.save(nuevaCancion);
+    }
 }
