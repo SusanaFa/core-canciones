@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.susanafarias.canciones.modelos.Cancion;
 import com.susanafarias.canciones.servicios.ServicioCanciones;
@@ -62,4 +63,36 @@ public class ControladorCanciones {
         // get.
         // PRG: Post-Redirect-Get
     }
+
+    @GetMapping("/canciones/formulario/editar/{idCancion}")
+    public String formularioEditarCancion(@PathVariable("idCancion") Long idCancion,
+            Model modelo) {
+        // System.out.println(">>> Entró a /canciones/formulario/editar/" + idCancion);
+        Cancion cancion = servicioCanciones.obtenerCancionPorId(idCancion);
+
+        if (cancion == null) {
+            return "redirect:/canciones";
+        }
+
+        modelo.addAttribute("cancion", cancion);
+
+        return "editarCancion";
+    }
+
+    @PutMapping("/canciones/procesa/editar/{idCancion}")
+    public String procesarEditarCancion(@PathVariable("idCancion") Long idCancion,
+            @Valid @ModelAttribute("cancion") Cancion cancion,
+            BindingResult validaciones) {
+
+        if (validaciones.hasErrors()) { // valido que no haya errores
+            return "editarCancion";
+        }
+
+        cancion.setId(idCancion); // me aseguro que la cancion tenga el id correcto
+
+        servicioCanciones.actualizaCancion(cancion); // guardo la cancion actualizada. se la paso al servicio
+        return "redirect:/canciones"; // retorno a la lista de canciones
+
+    }
+
 }

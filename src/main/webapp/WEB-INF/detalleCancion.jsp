@@ -2,7 +2,7 @@
 taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <title>Detalle Canción</title>
@@ -20,5 +20,10 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <p><strong>Actualizada:</strong> ${cancion.fechaActualizacion}</p>
 
     <a href="/canciones" class="btn-bottom">Volver al listado</a>
+    <p>
+      <a href="/canciones/formulario/editar/${cancion.id}" class="btn-bottom">
+        Editar canción
+      </a>
+    </p>
   </body>
 </html>

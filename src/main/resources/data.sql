@@ -13,3 +13,5 @@ VALUES
 ('La Camisa Negra', 'Juanes', 'Mi Sangre', 'Rock Latino', 'Español'),
 ('Enamoréname', 'Russtyko','Odisea', 'Dancehall', 'Español'),
 ('Amor Eterno', 'Russtyko','Odisea', 'Dancehall', 'Español');
+
+-- considerar que si se hace este insert, no se completan los datos de fechaCreacion y fechaActualizacion
