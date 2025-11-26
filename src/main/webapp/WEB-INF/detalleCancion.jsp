@@ -9,21 +9,27 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
-    <h1>Detalle de la Canción</h1>
+    <div class="card">
+      <h1>Detalle de la Canción</h1>
 
-    <p><strong>Título:</strong> ${cancion.titulo}</p>
-    <p><strong>Artista:</strong> ${cancion.artista}</p>
-    <p><strong>Álbum:</strong> ${cancion.album}</p>
-    <p><strong>Género:</strong> ${cancion.genero}</p>
-    <p><strong>Idioma:</strong> ${cancion.idioma}</p>
-    <p><strong>Creada:</strong> ${cancion.fechaCreacion}</p>
-    <p><strong>Actualizada:</strong> ${cancion.fechaActualizacion}</p>
+      <p><strong>Título:</strong> ${cancion.titulo}</p>
+      <p><strong>Artista:</strong> ${cancion.artista}</p>
+      <p><strong>Álbum:</strong> ${cancion.album}</p>
+      <p><strong>Género:</strong> ${cancion.genero}</p>
+      <p><strong>Idioma:</strong> ${cancion.idioma}</p>
+      <p><strong>Creada:</strong> ${cancion.fechaCreacion}</p>
+      <p><strong>Actualizada:</strong> ${cancion.fechaActualizacion}</p>
+      <p>
+        <a href="/canciones" class="btn-bottom">Volver al listado</a>
+      </p>
 
-    <a href="/canciones" class="btn-bottom">Volver al listado</a>
-    <p>
       <a href="/canciones/formulario/editar/${cancion.id}" class="btn-bottom">
         Editar canción
       </a>
-    </p>
+      <form action="/canciones/eliminar/${cancion.id}" method="POST">
+        <input type="hidden" name="_method" value="DELETE" />
+        <button class="delete-button">Eliminar</button>
+      </form>
+    </div>
   </body>
 </html>

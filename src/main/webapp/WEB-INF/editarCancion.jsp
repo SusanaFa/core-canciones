@@ -11,48 +11,52 @@ isErrorPage="true" %>
     <title>Editar canción</title>
   </head>
   <body>
-    <h1>Editar Canción</h1>
+    <div class="card">
+      <h1>Editar Canción</h1>
 
-    <form:form
-      action="/canciones/procesa/editar/${cancion.id}"
-      method="POST"
-      modelAttribute="cancion"
-    >
-      <input type="hidden" name="_method" value="PUT" />
+      <form:form
+        action="/canciones/procesa/editar/${cancion.id}"
+        method="POST"
+        modelAttribute="cancion"
+      >
+        <input type="hidden" name="_method" value="PUT" />
 
-      <div>
-        <form:label path="titulo">Título: </form:label>
-        <form:input path="titulo" />
-        <form:errors path="titulo" cssClass="error" />
-      </div>
+        <div>
+          <form:label path="titulo">Título: </form:label>
+          <form:input path="titulo" />
+          <form:errors path="titulo" cssClass="error" />
+        </div>
 
-      <div>
-        <form:label path="artista">Artista: </form:label>
-        <form:input path="artista" />
-        <form:errors path="artista" cssClass="error" />
-      </div>
+        <div>
+          <form:label path="artista">Artista: </form:label>
+          <form:input path="artista" />
+          <form:errors path="artista" cssClass="error" />
+        </div>
 
-      <div>
-        <form:label path="album">Album: </form:label>
-        <form:input path="album" />
-        <form:errors path="album" cssClass="error" />
-      </div>
+        <div>
+          <form:label path="album">Album: </form:label>
+          <form:input path="album" />
+          <form:errors path="album" cssClass="error" />
+        </div>
 
-      <div>
-        <form:label path="genero">Género: </form:label>
-        <form:input path="genero" />
-        <form:errors path="genero" cssClass="error" />
-      </div>
+        <div>
+          <form:label path="genero">Género: </form:label>
+          <form:input path="genero" />
+          <form:errors path="genero" cssClass="error" />
+        </div>
 
-      <div>
-        <form:label path="idioma">Idioma: </form:label>
-        <form:input path="idioma" />
-        <form:errors path="idioma" cssClass="error" />
-      </div>
-      <div>
-        <input type="submit" value="Guardar" />
-      </div>
-    </form:form>
-    <a href="/canciones" class="btn-bottom">Regresar a Listado de canciones</a>
+        <div>
+          <form:label path="idioma">Idioma: </form:label>
+          <form:input path="idioma" />
+          <form:errors path="idioma" cssClass="error" />
+        </div>
+        <div>
+          <input type="submit" value="Guardar" />
+        </div>
+      </form:form>
+      <a href="/canciones" class="btn-bottom"
+        >Regresar a Listado de canciones</a
+      >
+    </div>
   </body>
 </html>

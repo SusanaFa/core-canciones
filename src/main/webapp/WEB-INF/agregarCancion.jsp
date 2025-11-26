@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/styles.css">
   </head>
   <body>
+    <div class="card">
     <h1>Agregar Nueva Cancion</h1>
 
     <form:form
@@ -49,5 +50,6 @@
       <div><input type="submit" value="Agregar"></div>
     </form:form>
     <a href="/canciones" class="btn-bottom" >Regresar a Listado de canciones</a>
+ </div>
   </body>
 </html>
