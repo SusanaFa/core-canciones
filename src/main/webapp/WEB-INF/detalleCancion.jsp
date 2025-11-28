@@ -13,23 +13,28 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
       <h1>Detalle de la Canción</h1>
 
       <p><strong>Título:</strong> ${cancion.titulo}</p>
-      <p><strong>Artista:</strong> ${cancion.artista}</p>
+      <p>
+        <strong>Artista:</strong>
+        <c:if test="${cancion.artista != null}">
+          ${cancion.artista.nombre} ${cancion.artista.apellido}
+        </c:if>
+      </p>
       <p><strong>Álbum:</strong> ${cancion.album}</p>
       <p><strong>Género:</strong> ${cancion.genero}</p>
       <p><strong>Idioma:</strong> ${cancion.idioma}</p>
       <p><strong>Creada:</strong> ${cancion.fechaCreacion}</p>
       <p><strong>Actualizada:</strong> ${cancion.fechaActualizacion}</p>
-      <p>
+      <div class="actions">
         <a href="/canciones" class="btn-bottom">Volver al listado</a>
-      </p>
 
-      <a href="/canciones/formulario/editar/${cancion.id}" class="btn-bottom">
-        Editar canción
-      </a>
-      <form action="/canciones/eliminar/${cancion.id}" method="POST">
-        <input type="hidden" name="_method" value="DELETE" />
-        <button class="delete-button">Eliminar</button>
-      </form>
+        <a href="/canciones/formulario/editar/${cancion.id}" class="btn-bottom">
+          Editar canción
+        </a>
+        <form action="/canciones/eliminar/${cancion.id}" method="POST">
+          <input type="hidden" name="_method" value="DELETE" />
+          <button class="delete-button">Eliminar</button>
+        </form>
+      </div>
     </div>
   </body>
 </html>

@@ -36,9 +36,10 @@
         <form:errors path="biografia" cssClass="error" />
       </div>
 
-      <div><input type="submit" value="Guardar Artista"></div>
+      <div class="action"><input type="submit" value="Guardar Artista">
     </form:form>
     <a href="/artistas" class="btn-bottom" >Regresar a Listado de artistas</a>
+    </div>
  </div>
   </body>
 </html>

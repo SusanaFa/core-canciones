@@ -34,9 +34,9 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         </ul>
       </c:if>
 
-      <p>
-        <a href="/artistas">Volver a lista de artistas</a>
-      </p>
+      <div class="action">
+        <a href="/artistas" class="btn-bottom">Volver a lista de artistas</a>
+      </div>
     </div>
   </body>
 </html>

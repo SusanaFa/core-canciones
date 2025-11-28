@@ -17,24 +17,26 @@
         <p>No hay artistas registrados.</p>
       </c:if>
 
-      <!-- Aquí mostraremos el listado -->
-      <ul>
-        <c:forEach var="artista" items="${artistas}">
-          <li>
-            <a href="/artistas/detalle/${artista.id}">
-              ${artista.nombre} - ${artista.apellido}
-            </a>
-          </li>
-        </c:forEach>
-      </ul>
+      <!-- Aquí mostramos el listado -->
+      <c:if test="${not empty artistas}">
+        <ul>
+          <c:forEach var="artista" items="${artistas}">
+            <li>
+              <a href="/artistas/detalle/${artista.id}">
+                ${artista.nombre} - ${artista.apellido}
+              </a>
+            </li>
+          </c:forEach>
+        </ul>
+      </c:if>
 
-      <a href="/artistas/formulario/agregar" class="btn-bottom"
-        >Agregar Artista</a
-      >
+      <div class="action">
+        <a href="/artistas/formulario/agregar" class="btn-bottom"
+          >Agregar Artista</a
+        >
 
-      <p>
-        <a href="/canciones">Ir a canciones</a>
-      </p>
+        <a href="/canciones" class="btn-bottom">Ir a canciones</a>
+      </div>
     </div>
   </body>
 </html>
