@@ -9,21 +9,28 @@
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
-    <h1>Listado de Canciones</h1>
+    <div class="card">
+      <h1>Listado de Canciones</h1>
 
-    <!-- Aquí mostraremos el listado -->
-    <ul>
-      <c:forEach var="cancion" items="${canciones}">
-        <li>
-          <a href="/canciones/detalle/${cancion.id}">
-            ${cancion.titulo} - ${cancion.artista}
-          </a>
-        </li>
-      </c:forEach>
-    </ul>
+      <!-- Aquí mostraremos el listado -->
+      <ul>
+        <c:forEach var="cancion" items="${canciones}">
+          <li>
+            <a href="/canciones/detalle/${cancion.id}">
+              ${cancion.titulo} - ${cancion.artista.nombre}
+              ${cancion.artista.apellido}
+            </a>
+          </li>
+        </c:forEach>
+      </ul>
 
-    <a href="/canciones/formulario/agregar" class="btn-bottom"
-      >Agregar Canción</a
-    >
+      <a href="/canciones/formulario/agregar" class="btn-bottom"
+        >Agregar Canción</a
+      >
+
+      <p>
+        <a href="/artistas">Ir a artistas</a>
+      </p>
+    </div>
   </body>
 </html>

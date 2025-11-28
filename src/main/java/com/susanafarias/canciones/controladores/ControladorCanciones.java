@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.susanafarias.canciones.modelos.Artista;
 import com.susanafarias.canciones.modelos.Cancion;
+import com.susanafarias.canciones.servicios.ServicioArtistas;
 import com.susanafarias.canciones.servicios.ServicioCanciones;
 
 import jakarta.validation.Valid;
@@ -22,6 +25,8 @@ public class ControladorCanciones {
 
     @Autowired
     private ServicioCanciones servicioCanciones;
+    @Autowired // inyectar servicio de artistas
+    private ServicioArtistas servicioArtistas;
 
     @GetMapping("/canciones")
     public String desplegarCanciones(Model modelo) {
@@ -34,7 +39,11 @@ public class ControladorCanciones {
     @GetMapping("/canciones/detalle/{idCancion}")
     public String desplegarDetalleCancion(@PathVariable("idCancion") Long idCancion,
             Model modelo) {
-        // System.out.println(">>> Entró a /canciones/detalle/" + idCancion);
+
+        Cancion cancion = servicioCanciones.obtenerCancionPorId(idCancion);
+        if (cancion == null) {
+            return "redirect:/canciones";
+        }
         modelo.addAttribute("cancion", servicioCanciones.obtenerCancionPorId(idCancion));
 
         return "detalleCancion";
@@ -42,22 +51,34 @@ public class ControladorCanciones {
 
     @GetMapping("/canciones/formulario/agregar")
     public String formularioAgregarCancion(Model modelo) {
-        // System.out.println(">>> Entró a /canciones/formulario/agregar");
+        // objeto vacio para el form
         modelo.addAttribute("cancion", new Cancion());
+        // lista de artistas para el select
+        modelo.addAttribute("artistas", servicioArtistas.obtenerTodosLosArtistas());
 
         return "agregarCancion";
     }
 
     @PostMapping("/canciones/procesa/agregar")
     public String procesarAgregarCancion(@Valid @ModelAttribute("cancion") Cancion cancion,
-            BindingResult validaciones, Model modelo) {
+            BindingResult validaciones,
+            @RequestParam("artistaId") Long artistaId,
+            Model modelo) {
+
         // System.out.println(">>> Entró a /canciones/procesa/agregar");
         if (validaciones.hasErrors()) {
+            modelo.addAttribute("artistas", servicioArtistas.obtenerTodosLosArtistas());
             return "agregarCancion";
         }
 
+        Artista artista = servicioArtistas.obtenerArtistaPorId(artistaId);
+        if (artista == null) {
+            validaciones.rejectValue("artista", "NotFound", "Debe seleccionar un artista válido");
+            modelo.addAttribute("artistas", servicioArtistas.obtenerTodosLosArtistas());
+            return "agregarCancion";
+        }
+        cancion.setArtista(artista);
         servicioCanciones.agregarCancion(cancion);
-
         return "redirect:/canciones";
 
         // despues de un post, la practia recomendada es hacer un redirect a una ruta
@@ -76,6 +97,7 @@ public class ControladorCanciones {
         }
 
         modelo.addAttribute("cancion", cancion);
+        modelo.addAttribute("artistas", servicioArtistas.obtenerTodosLosArtistas());
 
         return "editarCancion";
     }
@@ -83,13 +105,25 @@ public class ControladorCanciones {
     @PutMapping("/canciones/procesa/editar/{idCancion}")
     public String procesarEditarCancion(@PathVariable("idCancion") Long idCancion,
             @Valid @ModelAttribute("cancion") Cancion cancion,
-            BindingResult validaciones) {
+            BindingResult validaciones,
+            @RequestParam("artistaId") Long artistaId,
+            Model modelo) {
 
         if (validaciones.hasErrors()) { // valido que no haya errores
+            modelo.addAttribute("artistas", servicioArtistas.obtenerTodosLosArtistas());
+            return "editarCancion";
+        }
+
+        var artista = servicioArtistas.obtenerArtistaPorId(artistaId);
+
+        if (artista == null) {
+            validaciones.rejectValue("artista", "NotFound", "Debe seleccionar un artista válido");
+            modelo.addAttribute("artistas", servicioArtistas.obtenerTodosLosArtistas());
             return "editarCancion";
         }
 
         cancion.setId(idCancion); // me aseguro que la cancion tenga el id correcto
+        cancion.setArtista(artista);
 
         servicioCanciones.actualizaCancion(cancion); // guardo la cancion actualizada. se la paso al servicio
         return "redirect:/canciones"; // retorno a la lista de canciones

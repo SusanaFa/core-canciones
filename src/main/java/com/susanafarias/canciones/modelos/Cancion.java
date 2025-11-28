@@ -9,7 +9,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -20,11 +23,16 @@ public class Cancion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Size(min = 5, message = "El título debe tener al menos 5 caracteres")
     private String titulo;
 
-    @Size(min = 3, message = "El artista debe tener al menos 3 caracteres")
-    private String artista;
+    // cambio de String a objeto Artista y quito la validación previa
+    // genero la relacion de mucho a uno... osea muchas canciones de un artista
+    // enlazo con la id de artista
+    @ManyToOne
+    @JoinColumn(name = "artista_id")
+    private Artista artista;
 
     @Size(min = 3, message = "Album debe tener al menos 3 caracteres")
     private String album;
@@ -61,13 +69,22 @@ public class Cancion {
         this.titulo = titulo;
     }
 
-    public String getArtista() {
+    // cambio de lo getter y setter de String a Artista
+
+    public Artista getArtista() {
         return artista;
     }
 
-    public void setArtista(String artista) {
+    public void setArtista(Artista artista) {
         this.artista = artista;
     }
+    // public String getArtista() {
+    // return artista;
+    // }
+
+    // public void setArtista(String artista) {
+    // this.artista = artista;
+    // }
 
     public String getAlbum() {
         return album;
